@@ -16,7 +16,7 @@ private var FTPullToRefreshFooterViewAssociateKey = 1
 extension UIScrollView {
     
 
- 
+    
 
     
     var headerView : FTPullToRefreshView! {
@@ -36,15 +36,12 @@ extension UIScrollView {
             objc_setAssociatedObject(self, &FTPullToRefreshFooterViewAssociateKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
         }
     }
-    
+ 
     public func addPullRefreshHeaderWithRefreshBlock(i : NSInteger) {
         self.addObserver(self, forKeyPath: "contentOffset", options: .New, context: nil)
      
-        print(self.contentOffset);
-        
-        
         self.headerView = FTPullToRefreshView(frame : CGRectMake(0, self.contentOffset.y - FTPullToRefreshHeaderViewHeight, self.bounds.size.width, FTPullToRefreshHeaderViewHeight))
-        self.headerView.backgroundColor = UIColor.redColor();
+        self.headerView.backgroundColor = UIColor.whiteColor();
         self.addSubview(self.headerView)
         
         
@@ -53,15 +50,30 @@ extension UIScrollView {
 
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         if keyPath == "contentOffset" {
-            self.scrollViewDidScrollWithContentOffset((change![NSKeyValueChangeNewKey]?.CGPointValue())!)
+            if let offset = (change![NSKeyValueChangeNewKey]?.CGPointValue()) {
+
+                self.scrollViewDidScrollWithContentOffset(offset)
+
+
+            }
         }
     }
     
     func scrollViewDidScrollWithContentOffset(contentOffset: CGPoint) {
         
         print(contentOffset)
+        print(self.contentInset.top)
+        if contentOffset.y == self.contentInset.top {
+            self.headerView.pullingState = .None
  
-        
+        }else if contentOffset.y < self.contentInset.top {
+            self.headerView.pullingPercentage = fabsf(Float((self.contentInset.top + contentOffset.y)/FTPullToRefreshHeaderViewHeight))
+            self.headerView.pullingState = .Pulling
+        }else if contentOffset.y < FTPullToRefreshHeaderViewHeight + self.contentInset.top {
+            self.headerView.pullingState = .None
+        }else {
+            self.headerView.pullingState = .None
+        }
         
     }
     

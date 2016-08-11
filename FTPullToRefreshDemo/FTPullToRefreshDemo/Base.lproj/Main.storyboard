@@ -63,11 +63,36 @@
                             <outlet property="delegate" destination="Vo6-5N-01F" id="L1P-7b-SzJ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="FTPullToRefreshDemo" id="R2O-9Y-yF7"/>
+                    <navigationItem key="navigationItem" title="FTPullToRefreshDemo" id="R2O-9Y-yF7">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Noe-Bw-Gq4">
+                            <connections>
+                                <segue destination="hdj-Yk-UZi" kind="show" id="imD-rM-w5O"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B6b-uG-rGa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="147" y="265"/>
+        </scene>
+        <!--DEMO-->
+        <scene sceneID="2g9-cv-J6y">
+            <objects>
+                <viewController id="hdj-Yk-UZi" customClass="SecondViewController" customModule="FTPullToRefreshDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6oA-wm-Qri"/>
+                        <viewControllerLayoutGuide type="bottom" id="3ss-3o-rpq"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5Xr-hD-Rma">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="DEMO" id="pcd-MV-0PJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W7G-pd-Awg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="545" y="265"/>
         </scene>
     </scenes>
 </document>

@@ -16,6 +16,7 @@
 		5A64C2471D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C2461D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.swift */; };
 		5A64C2581D5C1C390012A9FF /* FTPullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C2571D5C1C390012A9FF /* FTPullToRefresh.swift */; };
 		5A64C25A1D5C20A70012A9FF /* FTPullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C2591D5C20A70012A9FF /* FTPullToRefreshView.swift */; };
+		5A64C25C1D5C69630012A9FF /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C25B1D5C69630012A9FF /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		5A64C2481D5C1BCC0012A9FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A64C2571D5C1C390012A9FF /* FTPullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTPullToRefresh.swift; sourceTree = "<group>"; };
 		5A64C2591D5C20A70012A9FF /* FTPullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTPullToRefreshView.swift; sourceTree = "<group>"; };
+		5A64C25B1D5C69630012A9FF /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 			children = (
 				5A64C2261D5C1BCC0012A9FF /* AppDelegate.swift */,
 				5A64C2281D5C1BCC0012A9FF /* ViewController.swift */,
+				5A64C25B1D5C69630012A9FF /* SecondViewController.swift */,
 				5A64C2561D5C1C390012A9FF /* FTPullToRefresh */,
 				5A64C22A1D5C1BCC0012A9FF /* Main.storyboard */,
 				5A64C22D1D5C1BCC0012A9FF /* Assets.xcassets */,
@@ -274,6 +277,7 @@
 				5A64C25A1D5C20A70012A9FF /* FTPullToRefreshView.swift in Sources */,
 				5A64C2291D5C1BCC0012A9FF /* ViewController.swift in Sources */,
 				5A64C2581D5C1C390012A9FF /* FTPullToRefresh.swift in Sources */,
+				5A64C25C1D5C69630012A9FF /* SecondViewController.swift in Sources */,
 				5A64C2271D5C1BCC0012A9FF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,6 +503,7 @@
 				5A64C24D1D5C1BCC0012A9FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5A64C24E1D5C1BCC0012A9FF /* Build configuration list for PBXNativeTarget "FTPullToRefreshDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -507,6 +512,7 @@
 				5A64C2501D5C1BCC0012A9FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5A64C2511D5C1BCC0012A9FF /* Build configuration list for PBXNativeTarget "FTPullToRefreshDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +521,7 @@
 				5A64C2531D5C1BCC0012A9FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
