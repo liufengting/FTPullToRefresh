@@ -61,13 +61,12 @@ extension UIScrollView {
     
     func scrollViewDidScrollWithContentOffset(contentOffset: CGPoint) {
         
-        print(contentOffset)
-        print(self.contentInset.top)
+
         if contentOffset.y == self.contentInset.top {
             self.headerView.pullingState = .None
  
         }else if contentOffset.y < self.contentInset.top {
-            self.headerView.pullingPercentage = fabsf(Float((self.contentInset.top + contentOffset.y)/FTPullToRefreshHeaderViewHeight))
+            self.headerView.pullingPercentage = CGFloat(fabsf(Float((self.contentInset.top + contentOffset.y)/FTPullToRefreshHeaderViewHeight)))
             self.headerView.pullingState = .Pulling
         }else if contentOffset.y < FTPullToRefreshHeaderViewHeight + self.contentInset.top {
             self.headerView.pullingState = .None
