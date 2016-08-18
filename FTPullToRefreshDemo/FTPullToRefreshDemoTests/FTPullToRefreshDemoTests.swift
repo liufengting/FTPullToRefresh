@@ -2,7 +2,7 @@
 //  FTPullToRefreshDemoTests.swift
 //  FTPullToRefreshDemoTests
 //
-//  Created by liufengting on 16/8/11.
+//  Created by liufengting https://github.com/liufengting on 16/8/11.
 //  Copyright © 2016年 liufengting. All rights reserved.
 //
 
