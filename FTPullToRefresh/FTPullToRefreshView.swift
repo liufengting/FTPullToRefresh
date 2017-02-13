@@ -9,118 +9,74 @@
 import UIKit
 
 enum FTPullingState {
-    case None
-    case Pulling
-    case Triggered
-    case Loading
-    case Success
-    case Failed
+    case none
+    case pulling
+    case triggered
+    case refreshing
+    case success
+    case failed
 }
 
 class FTPullToRefreshView: UIView {
 
     
-    internal var pullingPercentage : CGFloat = CGFloat.NaN {
+    internal var pullingPercentage : CGFloat = CGFloat.nan {
         didSet{
-            self.setNeedsDisplay()
-        }
-    }
-    
-    internal var pullingState : FTPullingState = .None {
-        didSet {
-            if pullingState != oldValue {
-                self.setNeedsDisplay()
-             }
-        }
-    }
-    
-    var levelHeight : CGFloat = 10
-    
-    
-    
-    override func drawRect(rect: CGRect) {
-        super.drawRect(rect)
-        
-        switch self.pullingState {
-        case .Pulling:
-            
-            
-            if  pullingPercentage < 1 {
-                print(pullingPercentage)
-                
-                let roundCenter = self.getRoundCenter(pullingPercentage)
-                let roundRadius = self.getRoundRadius(pullingPercentage)
-                let roundAngle = self.getRoundAngle(pullingPercentage)
-//                let roundAngle = self.getRoundAngle(pullingPercentage)
-
-                let centerX : CGFloat = self.bounds.width/2;
-                let bottomY : CGFloat = self.bounds.height;
- 
-                let roundMarginX = roundRadius*sin(roundRadius)
-                let roundMarginY = roundRadius*cos(roundRadius)
- 
-                
-                let ctx = UIGraphicsGetCurrentContext()
-                CGContextSetFillColorWithColor(ctx, UIColor.redColor().CGColor)
-
-                CGContextMoveToPoint(ctx, centerX - 60, bottomY)
-                
-
-                CGContextAddLineToPoint(ctx, centerX - roundMarginX, bottomY - roundMarginY)
-                CGContextAddLineToPoint(ctx, centerX + roundMarginX, bottomY - roundMarginY)
- 
-                CGContextAddLineToPoint(ctx, centerX + 60, bottomY)
-                CGContextClosePath(ctx)
-                CGContextFillPath(ctx)
-                
-                
-                
-                
-                
-                
+            if abs(pullingPercentage) >= 1 {
+                self.pullingState = .triggered
             }else{
-                
-                print("nothing")
+                self.pullingState = .pulling
             }
-
-
-        default: break
-            
+            self.updateStateLabel()
         }
-
-
     }
     
-    func getRoundCenter(pullPercent: CGFloat) -> CGPoint {
-        if pullPercent <= 0.1 {
-            return CGPointMake(self.bounds.width/2, self.bounds.height + self.levelHeight * pullPercent * 10)
+    internal var pullingState : FTPullingState = .none {
+        didSet {
+            self.updateStateLabel()
         }
-        return CGPointZero
     }
     
-    func getRoundRadius(pullPercent: CGFloat) -> CGFloat {
-        if pullPercent <= 0.1 {
-            return 20
+    internal var refreshingBlock: (()->())? = nil
+    internal var originalContentOffset: CGFloat = 0
+
+    public func startRefreshing() {
+        self.pullingState = .refreshing
+        
+        self.refreshingBlock?()
+    }
+    
+    public func stopRefreshing(){
+        
+        self.pullingState = .success
+    }
+    
+    
+    lazy var displayLabel: UILabel = {
+        let label : UILabel = UILabel(frame: self.bounds)
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 15)
+        self.addSubview(label)
+        return label
+    }()
+    
+    
+    
+    func updateStateLabel() {
+        switch self.pullingState {
+        case .pulling:
+            self.displayLabel.text = "\(Int(abs(pullingPercentage*100)))%"
+        case .triggered:
+            self.displayLabel.text = "可以松手了。。"
+        case .refreshing:
+            self.displayLabel.text = "正在刷新。。"
+        case .success:
+            self.displayLabel.text = "刷新成功！！"
+        case .failed:
+            self.displayLabel.text = "刷新失败！！"
+        default:
+            self.displayLabel.text = ""
         }
-        return 20
-    }
-    func getRoundAngle(pullPercent: CGFloat) -> CGFloat {
-        if pullPercent <= 0.1 {
-            return 120
-        }
-        return 120
-    }
-    func getConvertPoint(pullPercent: CGFloat) -> CGPoint {
-        return CGPointZero
-    }
-    func getRoundMargin(pullPercent: CGFloat) -> CGFloat {
-        return 0
-    }
-    func getLeftRoundPoint(pullPercent: CGFloat) -> CGPoint {
-        return CGPointZero
-    }
-    func getRightRoundPoint(pullPercent: CGFloat) -> CGPoint {
-        return CGPointZero
     }
     
     

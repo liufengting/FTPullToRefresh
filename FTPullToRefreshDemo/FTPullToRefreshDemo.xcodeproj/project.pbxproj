@@ -12,29 +12,10 @@
 		5A64C22C1D5C1BCC0012A9FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A64C22A1D5C1BCC0012A9FF /* Main.storyboard */; };
 		5A64C22E1D5C1BCC0012A9FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A64C22D1D5C1BCC0012A9FF /* Assets.xcassets */; };
 		5A64C2311D5C1BCC0012A9FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A64C22F1D5C1BCC0012A9FF /* LaunchScreen.storyboard */; };
-		5A64C23C1D5C1BCC0012A9FF /* FTPullToRefreshDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C23B1D5C1BCC0012A9FF /* FTPullToRefreshDemoTests.swift */; };
-		5A64C2471D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C2461D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.swift */; };
 		5A64C2581D5C1C390012A9FF /* FTPullToRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C2571D5C1C390012A9FF /* FTPullToRefresh.swift */; };
 		5A64C25A1D5C20A70012A9FF /* FTPullToRefreshView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C2591D5C20A70012A9FF /* FTPullToRefreshView.swift */; };
 		5A64C25C1D5C69630012A9FF /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64C25B1D5C69630012A9FF /* SecondViewController.swift */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		5A64C2381D5C1BCC0012A9FF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5A64C21B1D5C1BCB0012A9FF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A64C2221D5C1BCB0012A9FF;
-			remoteInfo = FTPullToRefreshDemo;
-		};
-		5A64C2431D5C1BCC0012A9FF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5A64C21B1D5C1BCB0012A9FF /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 5A64C2221D5C1BCB0012A9FF;
-			remoteInfo = FTPullToRefreshDemo;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5A64C2231D5C1BCB0012A9FF /* FTPullToRefreshDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FTPullToRefreshDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,12 +25,6 @@
 		5A64C22D1D5C1BCC0012A9FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A64C2301D5C1BCC0012A9FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A64C2321D5C1BCC0012A9FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5A64C2371D5C1BCC0012A9FF /* FTPullToRefreshDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FTPullToRefreshDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A64C23B1D5C1BCC0012A9FF /* FTPullToRefreshDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTPullToRefreshDemoTests.swift; sourceTree = "<group>"; };
-		5A64C23D1D5C1BCC0012A9FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5A64C2421D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FTPullToRefreshDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A64C2461D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FTPullToRefreshDemoUITests.swift; sourceTree = "<group>"; };
-		5A64C2481D5C1BCC0012A9FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A64C2571D5C1C390012A9FF /* FTPullToRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTPullToRefresh.swift; sourceTree = "<group>"; };
 		5A64C2591D5C20A70012A9FF /* FTPullToRefreshView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FTPullToRefreshView.swift; sourceTree = "<group>"; };
 		5A64C25B1D5C69630012A9FF /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
@@ -63,20 +38,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5A64C2341D5C1BCC0012A9FF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5A64C23F1D5C1BCC0012A9FF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -84,8 +45,6 @@
 			isa = PBXGroup;
 			children = (
 				5A64C2251D5C1BCC0012A9FF /* FTPullToRefreshDemo */,
-				5A64C23A1D5C1BCC0012A9FF /* FTPullToRefreshDemoTests */,
-				5A64C2451D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests */,
 				5A64C2241D5C1BCB0012A9FF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -94,8 +53,6 @@
 			isa = PBXGroup;
 			children = (
 				5A64C2231D5C1BCB0012A9FF /* FTPullToRefreshDemo.app */,
-				5A64C2371D5C1BCC0012A9FF /* FTPullToRefreshDemoTests.xctest */,
-				5A64C2421D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -113,24 +70,6 @@
 				5A64C2321D5C1BCC0012A9FF /* Info.plist */,
 			);
 			path = FTPullToRefreshDemo;
-			sourceTree = "<group>";
-		};
-		5A64C23A1D5C1BCC0012A9FF /* FTPullToRefreshDemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				5A64C23B1D5C1BCC0012A9FF /* FTPullToRefreshDemoTests.swift */,
-				5A64C23D1D5C1BCC0012A9FF /* Info.plist */,
-			);
-			path = FTPullToRefreshDemoTests;
-			sourceTree = "<group>";
-		};
-		5A64C2451D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests */ = {
-			isa = PBXGroup;
-			children = (
-				5A64C2461D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.swift */,
-				5A64C2481D5C1BCC0012A9FF /* Info.plist */,
-			);
-			path = FTPullToRefreshDemoUITests;
 			sourceTree = "<group>";
 		};
 		5A64C2561D5C1C390012A9FF /* FTPullToRefresh */ = {
@@ -163,42 +102,6 @@
 			productReference = 5A64C2231D5C1BCB0012A9FF /* FTPullToRefreshDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		5A64C2361D5C1BCC0012A9FF /* FTPullToRefreshDemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5A64C24E1D5C1BCC0012A9FF /* Build configuration list for PBXNativeTarget "FTPullToRefreshDemoTests" */;
-			buildPhases = (
-				5A64C2331D5C1BCC0012A9FF /* Sources */,
-				5A64C2341D5C1BCC0012A9FF /* Frameworks */,
-				5A64C2351D5C1BCC0012A9FF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5A64C2391D5C1BCC0012A9FF /* PBXTargetDependency */,
-			);
-			name = FTPullToRefreshDemoTests;
-			productName = FTPullToRefreshDemoTests;
-			productReference = 5A64C2371D5C1BCC0012A9FF /* FTPullToRefreshDemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		5A64C2411D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 5A64C2511D5C1BCC0012A9FF /* Build configuration list for PBXNativeTarget "FTPullToRefreshDemoUITests" */;
-			buildPhases = (
-				5A64C23E1D5C1BCC0012A9FF /* Sources */,
-				5A64C23F1D5C1BCC0012A9FF /* Frameworks */,
-				5A64C2401D5C1BCC0012A9FF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				5A64C2441D5C1BCC0012A9FF /* PBXTargetDependency */,
-			);
-			name = FTPullToRefreshDemoUITests;
-			productName = FTPullToRefreshDemoUITests;
-			productReference = 5A64C2421D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -206,19 +109,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = liufengting;
 				TargetAttributes = {
 					5A64C2221D5C1BCB0012A9FF = {
 						CreatedOnToolsVersion = 7.3.1;
-					};
-					5A64C2361D5C1BCC0012A9FF = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 5A64C2221D5C1BCB0012A9FF;
-					};
-					5A64C2411D5C1BCC0012A9FF = {
-						CreatedOnToolsVersion = 7.3.1;
-						TestTargetID = 5A64C2221D5C1BCB0012A9FF;
+						DevelopmentTeam = E83AC9WR2F;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -236,8 +133,6 @@
 			projectRoot = "";
 			targets = (
 				5A64C2221D5C1BCB0012A9FF /* FTPullToRefreshDemo */,
-				5A64C2361D5C1BCC0012A9FF /* FTPullToRefreshDemoTests */,
-				5A64C2411D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -250,20 +145,6 @@
 				5A64C2311D5C1BCC0012A9FF /* LaunchScreen.storyboard in Resources */,
 				5A64C22E1D5C1BCC0012A9FF /* Assets.xcassets in Resources */,
 				5A64C22C1D5C1BCC0012A9FF /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5A64C2351D5C1BCC0012A9FF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5A64C2401D5C1BCC0012A9FF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,36 +163,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5A64C2331D5C1BCC0012A9FF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5A64C23C1D5C1BCC0012A9FF /* FTPullToRefreshDemoTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		5A64C23E1D5C1BCC0012A9FF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5A64C2471D5C1BCC0012A9FF /* FTPullToRefreshDemoUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		5A64C2391D5C1BCC0012A9FF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A64C2221D5C1BCB0012A9FF /* FTPullToRefreshDemo */;
-			targetProxy = 5A64C2381D5C1BCC0012A9FF /* PBXContainerItemProxy */;
-		};
-		5A64C2441D5C1BCC0012A9FF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 5A64C2221D5C1BCB0012A9FF /* FTPullToRefreshDemo */;
-			targetProxy = 5A64C2431D5C1BCC0012A9FF /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		5A64C22A1D5C1BCC0012A9FF /* Main.storyboard */ = {
@@ -347,8 +199,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -392,8 +246,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -412,6 +268,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -420,10 +277,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = E83AC9WR2F;
 				INFOPLIST_FILE = FTPullToRefreshDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.liufengting.FTPullToRefreshDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -431,56 +290,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = E83AC9WR2F;
 				INFOPLIST_FILE = FTPullToRefreshDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.liufengting.FTPullToRefreshDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		5A64C24F1D5C1BCC0012A9FF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = FTPullToRefreshDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.liufengting.FTPullToRefreshDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FTPullToRefreshDemo.app/FTPullToRefreshDemo";
-			};
-			name = Debug;
-		};
-		5A64C2501D5C1BCC0012A9FF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = FTPullToRefreshDemoTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.liufengting.FTPullToRefreshDemoTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FTPullToRefreshDemo.app/FTPullToRefreshDemo";
-			};
-			name = Release;
-		};
-		5A64C2521D5C1BCC0012A9FF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = FTPullToRefreshDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.liufengting.FTPullToRefreshDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = FTPullToRefreshDemo;
-			};
-			name = Debug;
-		};
-		5A64C2531D5C1BCC0012A9FF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = FTPullToRefreshDemoUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.liufengting.FTPullToRefreshDemoUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_TARGET_NAME = FTPullToRefreshDemo;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -501,24 +316,6 @@
 			buildConfigurations = (
 				5A64C24C1D5C1BCC0012A9FF /* Debug */,
 				5A64C24D1D5C1BCC0012A9FF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5A64C24E1D5C1BCC0012A9FF /* Build configuration list for PBXNativeTarget "FTPullToRefreshDemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5A64C24F1D5C1BCC0012A9FF /* Debug */,
-				5A64C2501D5C1BCC0012A9FF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		5A64C2511D5C1BCC0012A9FF /* Build configuration list for PBXNativeTarget "FTPullToRefreshDemoUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				5A64C2521D5C1BCC0012A9FF /* Debug */,
-				5A64C2531D5C1BCC0012A9FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

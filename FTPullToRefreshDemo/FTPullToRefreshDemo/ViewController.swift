@@ -14,24 +14,55 @@ class ViewController: UITableViewController {
         super.viewDidLoad()
 
         
-        self.tableView.addPullRefreshHeaderWithRefreshBlock(0);
+        self.tableView.addPullRefreshHeaderWithRefreshBlock {
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                self.tableView.stopRefreshing()
+            })
+        };
+        
+        self.tableView.addPullRefreshFooterWithRefreshBlock {
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+                self.tableView.stopRefreshing()
+            })
+        };
+
+        
         
     }
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView .dequeueReusableCellWithIdentifier("FTPullToRefreshCellIdentifier", forIndexPath: indexPath)
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView .dequeueReusableCell(withIdentifier: "FTPullToRefreshCellIdentifier", for: indexPath)
         
         
         return cell
     }
-
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+ 
+    
+    }
+    
+    
+    
+    
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        print(scrollView.panGestureRecognizer.velocity(in: scrollView))
+    }
+//    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+//        print(scrollView.decelerationRate)
+//    }
+//    
+    
 }
 
