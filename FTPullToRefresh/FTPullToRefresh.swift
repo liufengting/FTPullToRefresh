@@ -17,7 +17,6 @@ private let FTPullToRefreshKeyPathContentOffset = "contentOffset"
 private let FTPullToRefreshKeyPathContentSize = "contentSize"
 private let FTPullToRefreshKeyPathPanGestureState = "state"
 
-
 extension UIScrollView {
 
     var headerView : FTPullToRefreshView? {
