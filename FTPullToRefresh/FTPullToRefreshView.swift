@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum FTPullingState {
+public enum FTPullingState {
     case none
     case pulling
     case triggered
@@ -17,10 +17,10 @@ enum FTPullingState {
     case failed
 }
 
-class FTPullToRefreshView: UIView {
+public class FTPullToRefreshView: UIView {
 
     
-    internal var pullingPercentage : CGFloat = CGFloat.nan {
+    public var pullingPercentage : CGFloat = CGFloat.nan {
         didSet{
             if abs(pullingPercentage) >= 1 {
                 self.pullingState = .triggered
@@ -31,13 +31,13 @@ class FTPullToRefreshView: UIView {
         }
     }
     
-    internal var pullingState : FTPullingState = .none {
+    public var pullingState : FTPullingState = .none {
         didSet {
             self.updateStateLabel()
         }
     }
     
-    internal var refreshingBlock: (()->())? = nil
+    public var refreshingBlock: (()->())? = nil
 
     public func startRefreshing() {
         self.pullingState = .refreshing

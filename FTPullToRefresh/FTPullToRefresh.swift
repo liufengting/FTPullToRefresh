@@ -10,8 +10,6 @@ import UIKit
 import ObjectiveC
 
 private let FTPullToRefreshHeaderViewHeight : CGFloat = 60
-private var FTPullToRefreshHeaderViewAssociateKey = 0
-private var FTPullToRefreshFooterViewAssociateKey = 0
 
 private let FTPullToRefreshKeyPathContentOffset = "contentOffset"
 private let FTPullToRefreshKeyPathContentSize = "contentSize"
@@ -19,21 +17,26 @@ private let FTPullToRefreshKeyPathPanGestureState = "state"
 
 extension UIScrollView {
 
+    private struct AssociatedKeys {
+        static var headerViewAssociateKey = "FTPullToRefreshHeaderViewAssociateKey"
+        static var footerViewAssociateKey = "FTPullToRefreshFooterViewAssociateKey"
+    }
+    
     var headerView : FTPullToRefreshView? {
         get {
-            return objc_getAssociatedObject(self, &FTPullToRefreshHeaderViewAssociateKey) as? FTPullToRefreshView
+            return objc_getAssociatedObject(self, &AssociatedKeys.headerViewAssociateKey) as? FTPullToRefreshView
         }
         set {
-            objc_setAssociatedObject(self, &FTPullToRefreshHeaderViewAssociateKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &AssociatedKeys.headerViewAssociateKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
         }
     }
     
     var footerView : FTPullToRefreshView? {
         get {
-            return objc_getAssociatedObject(self, &FTPullToRefreshFooterViewAssociateKey) as? FTPullToRefreshView
+            return objc_getAssociatedObject(self, &AssociatedKeys.footerViewAssociateKey) as? FTPullToRefreshView
         }
         set {
-            objc_setAssociatedObject(self, &FTPullToRefreshFooterViewAssociateKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &AssociatedKeys.footerViewAssociateKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
         }
     }
  
@@ -47,29 +50,29 @@ extension UIScrollView {
 
     public func addPullRefreshFooterWithRefreshBlock(_ refreshingBlock: @escaping (()->())) {
         self.addObservers()
-        
+
         self.footerView = FTPullToRefreshView(frame : CGRect(x: 0, y: self.contentSize.height, width: self.bounds.size.width, height: FTPullToRefreshHeaderViewHeight))
         self.footerView?.backgroundColor = UIColor.red
         self.footerView?.refreshingBlock = refreshingBlock
         self.addSubview(self.footerView!)
     }
-
     
     func addObservers() {
-        self.addObserver(self, forKeyPath: FTPullToRefreshKeyPathContentOffset, options: .new, context: nil)
-        self.addObserver(self, forKeyPath: FTPullToRefreshKeyPathContentSize, options: .new, context: nil)
-        self.panGestureRecognizer.addObserver(self, forKeyPath: FTPullToRefreshKeyPathPanGestureState, options: .new, context: nil)
+        DispatchQueue.once(token: "com.ftpullrefresh.createonce") {
+            self.addObserver(self, forKeyPath: FTPullToRefreshKeyPathContentOffset, options: .new, context: nil)
+            self.addObserver(self, forKeyPath: FTPullToRefreshKeyPathContentSize, options: .new, context: nil)
+            self.panGestureRecognizer.addObserver(self, forKeyPath: FTPullToRefreshKeyPathPanGestureState, options: .new, context: nil)
+        }
     }
     
     func removeObservers() {
-        self.removeObserver(self, forKeyPath: FTPullToRefreshKeyPathContentOffset)
-        self.removeObserver(self, forKeyPath: FTPullToRefreshKeyPathContentSize)
-        self.panGestureRecognizer.removeObserver(self, forKeyPath: FTPullToRefreshKeyPathPanGestureState)
+        DispatchQueue.once(token: "com.ftpullrefresh.removeonce") {
+            self.removeObserver(self, forKeyPath: FTPullToRefreshKeyPathContentOffset)
+            self.removeObserver(self, forKeyPath: FTPullToRefreshKeyPathContentSize)
+            self.panGestureRecognizer.removeObserver(self, forKeyPath: FTPullToRefreshKeyPathPanGestureState)
+        }
     }
-    
-    
-    
-    
+
     public func stopRefreshing(){
         if self.headerView?.pullingState == .refreshing {
             self.headerView?.stopRefreshing()
@@ -135,7 +138,26 @@ extension UIScrollView {
             break
         }
     }
+}
 
+
+public extension DispatchQueue {
     
+    private static var _onceTracker = [String]()
     
+    /**
+     Executes a block of code, associated with a unique token, only once.  The code is thread safe and will
+     only execute the code once even in the presence of multithreaded calls.
+     
+     - parameter token: A unique reverse DNS style name such as com.vectorform.<name> or a GUID
+     - parameter block: Block to execute once
+     */
+    public class func once(token: String, block: (Void)->Void) {
+        objc_sync_enter(self); defer { objc_sync_exit(self) }
+        if _onceTracker.contains(token) {
+            return
+        }
+        _onceTracker.append(token)
+        block()
+    }
 }
