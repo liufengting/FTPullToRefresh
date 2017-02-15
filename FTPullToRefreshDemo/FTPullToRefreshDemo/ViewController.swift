@@ -16,28 +16,34 @@ class ViewController: UITableViewController {
         
         self.tableView.addPullRefreshHeaderWithRefreshBlock {
             
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-                self.tableView.stopRefreshing()
-            })
+            self.stopRefreshAfter3Seconds()
+
         };
         
         self.tableView.addPullRefreshFooterWithRefreshBlock {
             
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-                self.tableView.stopRefreshing()
-            })
+            self.stopRefreshAfter3Seconds()
+            
         };
 
         
         
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+
+    func stopRefreshAfter3Seconds() {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+            self.tableView.stopRefreshing()
+        })
     }
     
+    
+    
+    
+    
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 20
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,14 +61,6 @@ class ViewController: UITableViewController {
     
     
     
-    
-    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//        print(scrollView.panGestureRecognizer.velocity(in: scrollView))
-    }
-//    override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-//        print(scrollView.decelerationRate)
-//    }
-//    
-    
+
 }
 

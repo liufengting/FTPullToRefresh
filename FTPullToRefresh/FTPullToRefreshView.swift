@@ -13,7 +13,7 @@ enum FTPullingState {
     case pulling
     case triggered
     case refreshing
-    case success
+    case succeed
     case failed
 }
 
@@ -38,7 +38,6 @@ class FTPullToRefreshView: UIView {
     }
     
     internal var refreshingBlock: (()->())? = nil
-    internal var originalContentOffset: CGFloat = 0
 
     public func startRefreshing() {
         self.pullingState = .refreshing
@@ -48,10 +47,9 @@ class FTPullToRefreshView: UIView {
     
     public func stopRefreshing(){
         
-        self.pullingState = .success
+        self.pullingState = .succeed
     }
-    
-    
+
     lazy var displayLabel: UILabel = {
         let label : UILabel = UILabel(frame: self.bounds)
         label.textAlignment = .center
@@ -70,7 +68,7 @@ class FTPullToRefreshView: UIView {
             self.displayLabel.text = "可以松手了。。"
         case .refreshing:
             self.displayLabel.text = "正在刷新。。"
-        case .success:
+        case .succeed:
             self.displayLabel.text = "刷新成功！！"
         case .failed:
             self.displayLabel.text = "刷新失败！！"
