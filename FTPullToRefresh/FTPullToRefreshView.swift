@@ -17,6 +17,12 @@ public enum FTPullingState {
     case failed
 }
 
+public enum FTPullToRefreshViewPosition {
+    case top
+    case bottom
+}
+
+
 public class FTPullToRefreshView: UIView {
 
     
@@ -37,12 +43,19 @@ public class FTPullToRefreshView: UIView {
         }
     }
     
-    public var refreshingBlock: (()->())? = nil
+    public var position : FTPullToRefreshViewPosition = .top
+    
+    public var topRefreshingBlock: (()->())? = nil
+    public var bottomRefreshingBlock: (()->())? = nil
 
     public func startRefreshing() {
         self.pullingState = .refreshing
         
-        self.refreshingBlock?()
+        if self.position == .top {
+            self.topRefreshingBlock?()
+        }else{
+            self.bottomRefreshingBlock?()
+        }
     }
     
     public func stopRefreshing(){

@@ -9,7 +9,7 @@
 import UIKit
 import ObjectiveC
 
-private let FTPullToRefreshHeaderViewHeight : CGFloat = 60
+private let FTPullToRefreshViewHeight : CGFloat = 60
 
 private let FTPullToRefreshKeyPathContentOffset = "contentOffset"
 private let FTPullToRefreshKeyPathContentSize = "contentSize"
@@ -18,43 +18,34 @@ private let FTPullToRefreshKeyPathPanGestureState = "state"
 extension UIScrollView {
 
     private struct AssociatedKeys {
-        static var headerViewAssociateKey = "FTPullToRefreshHeaderViewAssociateKey"
-        static var footerViewAssociateKey = "FTPullToRefreshFooterViewAssociateKey"
+        static var refreshViewAssociateKey = "FTPullToRefreshRefreshViewAssociateKey"
     }
     
-    var headerView : FTPullToRefreshView? {
+    var refreshView : FTPullToRefreshView? {
         get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.headerViewAssociateKey) as? FTPullToRefreshView
+            return objc_getAssociatedObject(self, &AssociatedKeys.refreshViewAssociateKey) as? FTPullToRefreshView
         }
         set {
-            objc_setAssociatedObject(self, &AssociatedKeys.headerViewAssociateKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
+            objc_setAssociatedObject(self, &AssociatedKeys.refreshViewAssociateKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
         }
     }
-    
-    var footerView : FTPullToRefreshView? {
-        get {
-            return objc_getAssociatedObject(self, &AssociatedKeys.footerViewAssociateKey) as? FTPullToRefreshView
-        }
-        set {
-            objc_setAssociatedObject(self, &AssociatedKeys.footerViewAssociateKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN)
-        }
-    }
- 
+
     public func addPullRefreshHeaderWithRefreshBlock(_ refreshingBlock: @escaping (()->())) {
         self.addObservers()
         
-        self.headerView = FTPullToRefreshView(frame : CGRect(x: 0, y: self.contentOffset.y - FTPullToRefreshHeaderViewHeight, width: self.bounds.size.width, height: FTPullToRefreshHeaderViewHeight))
-        self.headerView?.refreshingBlock = refreshingBlock
-        self.addSubview(self.headerView!)
+        self.createRefreshViewIfNeeded()
+
+        self.refreshView?.topRefreshingBlock = refreshingBlock
+ 
     }
 
     public func addPullRefreshFooterWithRefreshBlock(_ refreshingBlock: @escaping (()->())) {
         self.addObservers()
 
-        self.footerView = FTPullToRefreshView(frame : CGRect(x: 0, y: self.contentSize.height, width: self.bounds.size.width, height: FTPullToRefreshHeaderViewHeight))
-        self.footerView?.backgroundColor = UIColor.red
-        self.footerView?.refreshingBlock = refreshingBlock
-        self.addSubview(self.footerView!)
+        self.createRefreshViewIfNeeded()
+
+        self.refreshView?.bottomRefreshingBlock = refreshingBlock
+
     }
     
     func addObservers() {
@@ -72,25 +63,29 @@ extension UIScrollView {
             self.panGestureRecognizer.removeObserver(self, forKeyPath: FTPullToRefreshKeyPathPanGestureState)
         }
     }
+    
+    
+    func createRefreshViewIfNeeded() {
+        if self.refreshView == nil {
+            self.refreshView = FTPullToRefreshView(frame : CGRect(x: 0, y: self.contentOffset.y - FTPullToRefreshViewHeight, width: self.bounds.size.width, height: FTPullToRefreshViewHeight))
+            self.addSubview(self.refreshView!)
+        }
+    }
+    
 
     public func stopRefreshing(){
-        if self.headerView?.pullingState == .refreshing {
-            self.headerView?.stopRefreshing()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+        if self.refreshView?.pullingState == .refreshing {
+            if self.refreshView?.position == .top {
                 self.contentInset.top = 64
                 self.setContentOffset(CGPoint(x: 0, y: -64), animated: true)
-            })
-        }
-        if self.footerView?.pullingState == .refreshing {
-            self.footerView?.stopRefreshing()
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(1.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
+            }else{
                 self.contentInset.bottom = 0
                 self.setContentOffset(CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height), animated: true)
-            })
+            }
+            self.refreshView?.stopRefreshing()
         }
     }
 
-    
     override open func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
 
         if keyPath == FTPullToRefreshKeyPathContentOffset {
@@ -102,40 +97,66 @@ extension UIScrollView {
                 self.scrollViewDidChangePanGestureState(UIGestureRecognizerState(rawValue: newValue)!)
             }
         }else if keyPath == FTPullToRefreshKeyPathContentSize {
-            self.footerView?.frame = CGRect(x: 0, y: self.contentSize.height, width: self.bounds.size.width, height: FTPullToRefreshHeaderViewHeight)
+                self.repositionRefreshView()
         }
     }
     
     func scrollViewDidScrollWithContentOffset(_ contentOffset: CGPoint) {
-
-        if contentOffset.y < -self.contentInset.top {
-            if self.isDragging {
-                self.headerView?.pullingPercentage = CGFloat(fabsf(Float((self.contentInset.top + contentOffset.y)/FTPullToRefreshHeaderViewHeight)))
+        if self.isDragging {
+            let velocity = panGestureRecognizer.velocity(in: self)
+            if velocity.y > 0 { //↓
+                self.refreshView?.position = .top
+                self.repositionRefreshView()
+                if contentOffset.y < -self.contentInset.top {
+                    self.refreshView?.pullingPercentage = CGFloat(fabsf(Float((self.contentInset.top + contentOffset.y)/FTPullToRefreshViewHeight)))
+                }
+            } else {//↑
+                self.refreshView?.position = .bottom
+                self.repositionRefreshView()
+                if self.contentSize.height > self.bounds.size.height {
+                    if contentOffset.y > self.contentSize.height - self.bounds.size.height {
+                        self.refreshView?.pullingPercentage = CGFloat(fabsf(Float((contentOffset.y - (self.contentSize.height - self.bounds.size.height))/FTPullToRefreshViewHeight)))
+                    }
+                }else{
+                    if contentOffset.y > self.contentSize.height - self.bounds.size.height {
+                        self.refreshView?.pullingPercentage = CGFloat(fabsf(Float((-64 - contentOffset.y)/FTPullToRefreshViewHeight)))
+                    }
+                }
             }
         }
-        
-        if contentOffset.y > self.contentSize.height - self.bounds.size.height {
-            self.footerView?.pullingPercentage = CGFloat(fabsf(Float((contentOffset.y - (self.contentSize.height - self.bounds.size.height))/FTPullToRefreshHeaderViewHeight)))
-        }
     }
-    
+
     func scrollViewDidChangePanGestureState(_ state: UIGestureRecognizerState) {
         
         switch state {
         case .ended:
-            if self.headerView?.pullingState == .triggered {
-                self.contentInset.top = FTPullToRefreshHeaderViewHeight + 64
-                self.setContentOffset(CGPoint(x: 0, y: -(FTPullToRefreshHeaderViewHeight + 64)), animated: true)
-                self.headerView?.startRefreshing()
+            if self.refreshView?.position == .top {
+                if self.refreshView?.pullingState == .triggered {
+                    self.contentInset.top = FTPullToRefreshViewHeight + 64
+                    self.setContentOffset(CGPoint(x: 0, y: -(FTPullToRefreshViewHeight + 64)), animated: true)
+                    self.refreshView?.startRefreshing()
+                }
+            }else{
+                if self.refreshView?.pullingState == .triggered {
+                    if self.contentSize.height > self.bounds.size.height {
+                        self.contentInset.bottom = FTPullToRefreshViewHeight
+                        self.setContentOffset(CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height + FTPullToRefreshViewHeight), animated: true)
+                        self.refreshView?.startRefreshing()
+                    }else{
+                        self.refreshView?.startRefreshing()
+                    }
+                }
             }
-            if self.footerView?.pullingState == .triggered {
-                self.contentInset.bottom = FTPullToRefreshHeaderViewHeight
-                self.setContentOffset(CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height + FTPullToRefreshHeaderViewHeight), animated: true)
-                self.footerView?.startRefreshing()
-            }
-            
         default:
             break
+        }
+    }
+    
+    func repositionRefreshView() {
+        if self.refreshView?.position == .top {
+            self.refreshView?.frame = CGRect(x: 0, y: 0 - FTPullToRefreshViewHeight, width: self.bounds.size.width, height: FTPullToRefreshViewHeight)
+        }else{
+            self.refreshView?.frame = CGRect(x: 0, y: self.contentSize.height, width: self.bounds.size.width, height: FTPullToRefreshViewHeight)
         }
     }
 }
