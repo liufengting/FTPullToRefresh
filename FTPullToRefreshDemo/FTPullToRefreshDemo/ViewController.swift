@@ -10,11 +10,14 @@ import UIKit
 
 class ViewController: UITableViewController {
 
-    var numberOfCells = 20
+    var numberOfCells = 2
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        self.tableView.tableFooterView = UIView()
+        
         self.tableView.addPullRefreshHeaderWithRefreshBlock {
             
             self.stopRefreshAfter3Seconds()
@@ -31,8 +34,8 @@ class ViewController: UITableViewController {
 
     func stopRefreshAfter3Seconds() {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: {
-//            self.numberOfCells += 5
-//            self.tableView.reloadData()
+            self.numberOfCells += 5
+            self.tableView.reloadData()
             self.tableView.stopRefreshing()
         })
     }

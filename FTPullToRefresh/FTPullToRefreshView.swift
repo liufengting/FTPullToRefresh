@@ -25,10 +25,17 @@ public enum FTPullToRefreshViewPosition {
 
 public class FTPullToRefreshView: UIView {
 
+    public var originalContentInset: UIEdgeInsets = UIEdgeInsets.zero
+    public var topRefreshingBlock: (()->())? = nil
+    public var bottomRefreshingBlock: (()->())? = nil
+    
+    public var position : FTPullToRefreshViewPosition = .top
     
     public var pullingPercentage : CGFloat = CGFloat.nan {
         didSet{
-            if abs(pullingPercentage) >= 1 {
+            if pullingPercentage == 0 {
+                self.pullingState = .none
+            }else if abs(pullingPercentage) >= 1 {
                 self.pullingState = .triggered
             }else{
                 self.pullingState = .pulling
@@ -43,11 +50,6 @@ public class FTPullToRefreshView: UIView {
         }
     }
     
-    public var position : FTPullToRefreshViewPosition = .top
-    
-    public var topRefreshingBlock: (()->())? = nil
-    public var bottomRefreshingBlock: (()->())? = nil
-
     public func startRefreshing() {
         self.pullingState = .refreshing
         

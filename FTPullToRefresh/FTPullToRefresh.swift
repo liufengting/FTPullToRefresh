@@ -48,6 +48,12 @@ extension UIScrollView {
 
     }
     
+    open override func willMove(toSuperview newSuperview: UIView?) {
+        super.willMove(toSuperview: newSuperview)
+
+        self.refreshView?.originalContentInset = self.contentInset
+    }
+
     func addObservers() {
         DispatchQueue.once(token: "com.ftpullrefresh.createonce") {
             self.addObserver(self, forKeyPath: FTPullToRefreshKeyPathContentOffset, options: .new, context: nil)
@@ -76,11 +82,13 @@ extension UIScrollView {
     public func stopRefreshing(){
         if self.refreshView?.pullingState == .refreshing {
             if self.refreshView?.position == .top {
-                self.contentInset.top = 64
-                self.setContentOffset(CGPoint(x: 0, y: -64), animated: true)
+                self.contentInset.top = (self.refreshView?.originalContentInset.top)!
+                self.setContentOffset(CGPoint(x: 0, y: -(self.refreshView?.originalContentInset.top)!), animated: true)
             }else{
-                self.contentInset.bottom = 0
-                self.setContentOffset(CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height), animated: true)
+                if self.contentSize.height > self.bounds.size.height {
+                    self.contentInset.bottom = 0
+                    self.setContentOffset(CGPoint(x: 0, y: self.contentSize.height - self.bounds.size.height), animated: true)
+                }
             }
             self.refreshView?.stopRefreshing()
         }
@@ -102,38 +110,54 @@ extension UIScrollView {
     }
     
     func scrollViewDidScrollWithContentOffset(_ contentOffset: CGPoint) {
-        if self.isDragging {
-            let velocity = panGestureRecognizer.velocity(in: self)
-            if velocity.y > 0 { //↓
-                self.refreshView?.position = .top
-                self.repositionRefreshView()
-                if contentOffset.y < -self.contentInset.top {
-                    self.refreshView?.pullingPercentage = CGFloat(fabsf(Float((self.contentInset.top + contentOffset.y)/FTPullToRefreshViewHeight)))
-                }
-            } else {//↑
-                self.refreshView?.position = .bottom
-                self.repositionRefreshView()
-                if self.contentSize.height > self.bounds.size.height {
-                    if contentOffset.y > self.contentSize.height - self.bounds.size.height {
-                        self.refreshView?.pullingPercentage = CGFloat(fabsf(Float((contentOffset.y - (self.contentSize.height - self.bounds.size.height))/FTPullToRefreshViewHeight)))
-                    }
-                }else{
-                    if contentOffset.y > self.contentSize.height - self.bounds.size.height {
-                        self.refreshView?.pullingPercentage = CGFloat(fabsf(Float((-64 - contentOffset.y)/FTPullToRefreshViewHeight)))
-                    }
-                }
+        
+        if self.refreshView?.pullingState == .refreshing {
+            return
+        }
+        
+        print(self.contentInset)
+        
+        if !self.isDragging {
+            self.refreshView?.originalContentInset = self.contentInset
+        }
+        
+        var pullingPercentage : CGFloat = 0
+        if contentOffset.y < 0 - (self.refreshView?.originalContentInset.top)! {
+            if contentOffset.y < -self.contentInset.top {
+                pullingPercentage = CGFloat(fabsf(Float((self.contentInset.top + contentOffset.y)/FTPullToRefreshViewHeight)))
+                self.prepareRefreshView(.top, percentage: pullingPercentage)
+            }
+        }else if self.contentSize.height > self.bounds.size.height {
+            if contentOffset.y > self.contentSize.height - self.bounds.size.height {
+                pullingPercentage = CGFloat(fabsf(Float((contentOffset.y - (self.contentSize.height - self.bounds.size.height))/FTPullToRefreshViewHeight)))
+                self.prepareRefreshView(.bottom, percentage: pullingPercentage)
+            }
+        }else if self.contentSize.height < self.bounds.size.height {
+            if contentOffset.y > self.contentSize.height - self.bounds.size.height {
+                pullingPercentage = CGFloat(fabsf(Float(((self.refreshView?.originalContentInset.top)! + contentOffset.y)/FTPullToRefreshViewHeight)))
+                self.prepareRefreshView(.bottom, percentage: pullingPercentage)
             }
         }
     }
 
+    func prepareRefreshView(_ position: FTPullToRefreshViewPosition, percentage: CGFloat) {
+        if self.refreshView?.position != position {
+            self.refreshView?.position = position
+            self.repositionRefreshView()
+        }
+        self.refreshView?.pullingPercentage = percentage
+    }
+    
+    
+    
     func scrollViewDidChangePanGestureState(_ state: UIGestureRecognizerState) {
         
         switch state {
         case .ended:
             if self.refreshView?.position == .top {
                 if self.refreshView?.pullingState == .triggered {
-                    self.contentInset.top = FTPullToRefreshViewHeight + 64
-                    self.setContentOffset(CGPoint(x: 0, y: -(FTPullToRefreshViewHeight + 64)), animated: true)
+                    self.contentInset.top = FTPullToRefreshViewHeight + (self.refreshView?.originalContentInset.top)!
+                    self.setContentOffset(CGPoint(x: 0, y: -(FTPullToRefreshViewHeight + (self.refreshView?.originalContentInset.top)!)), animated: true)
                     self.refreshView?.startRefreshing()
                 }
             }else{
