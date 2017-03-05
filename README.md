@@ -4,6 +4,8 @@ FTPullToRefresh.
 
 ## not quite finished.
 
+Do not use until tested. 
+
 ###Update
 
 * 2016.04.08 -- initialization 
