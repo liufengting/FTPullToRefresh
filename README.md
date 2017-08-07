@@ -13,5 +13,6 @@ Do not use until tested.
 * 2016.04.10 -- have an idea
 * 2016.04.11 -- everything was lost
 * 2016.08.15 -- not having much to do, so i decided to rewrite it
+* 2017.08.07 -- rewrite it
 
 
